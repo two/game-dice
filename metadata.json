@@ -1,0 +1,5 @@
+{
+  "name": "极简骰子",
+  "description": "一个纯净、响应迅速的 3D 骰子模拟器，支持手动开始和停止，提供极简的投掷体验。",
+  "requestFramePermissions": []
+}

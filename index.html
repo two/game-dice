@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>极简骰子</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+        /* 3D Dice Styles */
+        .dice-container {
+            perspective: 1000px;
+        }
+        .dice {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            transform-style: preserve-3d;
+            /* 缩短过渡时间，让停止动作更干脆 */
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .dice-face {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backface-visibility: hidden;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: #1e293b;
+            border-radius: 50%;
+        }
+        /* Face positioning */
+        .face-1 { transform: rotateY(0deg) translateZ(40px); }
+        .face-2 { transform: rotateY(180deg) translateZ(40px); }
+        .face-3 { transform: rotateY(90deg) translateZ(40px); }
+        .face-4 { transform: rotateY(-90deg) translateZ(40px); }
+        .face-5 { transform: rotateX(90deg) translateZ(40px); }
+        .face-6 { transform: rotateX(-90deg) translateZ(40px); }
+
+        /* Animation class for rolling - 速度从 1s 提升到 0.3s */
+        .animate-roll {
+            animation: roll 0.3s linear infinite;
+        }
+        @keyframes roll {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+  }
+}
+</script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
