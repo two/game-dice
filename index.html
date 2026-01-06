@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>极简骰子</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -11,6 +11,8 @@
             background-color: #0f172a;
             color: #f8fafc;
             overflow-x: hidden;
+            margin: 0;
+            padding: 0;
         }
         /* 3D Dice Styles */
         .dice-container {
@@ -21,7 +23,6 @@
             width: 80px;
             height: 80px;
             transform-style: preserve-3d;
-            /* 缩短过渡时间，让停止动作更干脆 */
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .dice-face {
@@ -51,7 +52,6 @@
         .face-5 { transform: rotateX(90deg) translateZ(40px); }
         .face-6 { transform: rotateX(-90deg) translateZ(40px); }
 
-        /* Animation class for rolling - 速度从 1s 提升到 0.3s */
         .animate-roll {
             animation: roll 0.3s linear infinite;
         }
@@ -63,15 +63,17 @@
 <script type="importmap">
 {
   "imports": {
-    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "react/": "https://esm.sh/react@^19.2.3/",
     "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0"
   }
 }
 </script>
 </head>
 <body>
     <div id="root"></div>
+    <!-- 显式引入入口文件，这是 Vite 识别编译入口的关键 -->
+    <script type="module" src="/index.tsx"></script>
 </body>
 </html>

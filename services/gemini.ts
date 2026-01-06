@@ -2,7 +2,16 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { AiResponse } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || "" });
+// 确保在 process 不存在时不会抛出 ReferenceError
+const getApiKey = () => {
+  try {
+    return process.env.API_KEY || "";
+  } catch (e) {
+    return "";
+  }
+};
+
+const ai = new GoogleGenAI({ apiKey: getApiKey() });
 
 export const getAiNarration = async (
   rollTotal: number, 
@@ -16,8 +25,6 @@ export const getAiNarration = async (
       contents: `用户刚刚掷出了 ${diceCount} 个骰子，总和为 ${rollTotal}。
       当前游戏状态：累计得分 ${previousScore + rollTotal}。
       请作为一个毒舌但幽默的“骰子大师”给予评论。
-      如果是 ${diceCount * 6} 点（全满分），你必须表现得非常震惊和崇拜。
-      如果是 ${diceCount * 1} 点（全是1），请疯狂嘲笑这种非酋运气。
       回复语言必须是中文。`,
       config: {
         responseMimeType: "application/json",
@@ -40,7 +47,7 @@ export const getAiNarration = async (
   } catch (error) {
     console.error("Gemini API Error:", error);
     return {
-      message: `你掷出了 ${rollTotal}！我的法力暂时紊乱，无法点评你的命运。`,
+      message: `你掷出了 ${rollTotal}！`,
       mood: "neutral"
     };
   }
